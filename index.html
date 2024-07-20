@@ -1,0 +1,183 @@
+
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <style> 
+        @font-face { 
+            font-family: 'Geometria'; 
+            src: url('Geometria.ttf') format('truetype'); 
+            font-weight: 100; 
+        } 
+ 
+        @font-face { 
+            font-family: 'Geometria'; 
+            src: url('Geometria-Medium.ttf') format('truetype'); 
+            font-weight: 500; 
+        } 
+ 
+        body { 
+            font-family: 'Geometria', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+        } 
+ 
+        .container { 
+            position: relative; 
+            text-align: center; 
+            color: white; 
+        } 
+ 
+        .centered-text { 
+            position: absolute; 
+            transform: translate(-50%, -50%); 
+        } 
+ 
+        .text1-container { 
+            position: absolute; 
+            top: 24.2%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            display: flex; 
+            align-items: flex-end; 
+            font-size: 232%; 
+            font-weight: 500; 
+            color: #07be50; 
+        } 
+ 
+        .text1 { 
+            margin-right: 30px; /* Ajusta según sea necesario */ 
+        } 
+ 
+        .text1 img { 
+            height: 0.8em; /* Ajusta el tamaño según el tamaño del texto */ 
+            width: auto; 
+            margin-bottom: 0.1em; /* Ajusta según sea necesario para alinear verticalmente */ 
+        } 
+ 
+        .text2 { 
+            top: 34%; 
+            left: 35.3%; 
+            color: #000; 
+            font-size: 84%; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            font-weight: 100; 
+        } 
+ 
+        .text3 { 
+            top: 50.9%; 
+            left: 29%; 
+            color: #000; 
+            font-size: 84%; 
+            font-weight: 100; 
+        } 
+ 
+        .text6 { 
+            top: 40.6%; 
+            left: 14.5%; 
+            color: #000; 
+            font-size: 84%; 
+            font-weight: 100; 
+        } 
+ 
+        .text4 { 
+            top: 35.8%; 
+            left: 20.5%; 
+            color: #000; 
+            font-size: 84%; 
+            font-weight: 100; 
+        } 
+ 
+        .text5 { 
+            top: 55.9%; 
+            left: 18.59%; 
+            color: #000; 
+            font-size: 84%; 
+            font-weight: 100; 
+        } 
+        .small-img { 
+            height: 24px; /* Ajusta el tamaño según sea necesario */ 
+            width: auto; 
+            padding-bottom: 4%; 
+            margin-right: 1.5%; 
+        } 
+ 
+    </style> 
+</head> 
+<body> 
+    <div class="container"> 
+        <img src="plindef.png" alt="Yape Image" style="width:100%;"> 
+        <div class="text1-container"> 
+            <img src="Splin.png" alt="Dollar Symbol" class="small-img"/> <!-- Reemplaza 'dollar-symbol.png' con la ruta de tu imagen --> 
+            <div class="text1" id="text1">500.00</div> 
+        </div> 
+        <div class="centered-text text2" id="text2">DHERY MARTIN VIERA GONZA</div> 
+        <div class="centered-text text3" id="current-time"></div> 
+        <div class="centered-text text6" id="text6">Yape</div> 
+        <div class="centered-text text4" id="text4">980 707 260</div> 
+        <div class="centered-text text5" id="random-number"></div> 
+    </div> 
+    <script> 
+        function formatDate(date) { 
+            const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']; 
+            const day = date.getDate().toString().padStart(2, '0'); 
+            const month = months[date.getMonth()]; 
+            const year = date.getFullYear(); 
+            let hours = date.getHours(); 
+            const minutes = date.getMinutes().toString().padStart(2, '0'); 
+            const ampm = hours >= 12 ? 'PM' : 'AM'; 
+            hours = hours % 12 || 12; 
+            const formattedHours = hours.toString().padStart(2, '0'); 
+            return `${day} ${month} ${year} &nbsp;&nbsp;${formattedHours}:${minutes} ${ampm}`; 
+        } 
+ 
+        function updateTime() { 
+            const now = new Date(); 
+            const formattedDate = formatDate(now); 
+            document.getElementById('current-time').innerHTML = formattedDate; 
+        } 
+ 
+        function getRandomNumber() { 
+            const min = 10000000; 
+            const max = 16000000; 
+            return Math.floor(Math.random() * (max - min + 1)) + min; 
+        } 
+ 
+        function updateRandomNumber() { 
+            const randomNumber = getRandomNumber(); 
+            document.getElementById('random-number').textContent = randomNumber; 
+        } 
+ 
+        function getQueryParam(name) { 
+            const urlParams = new URLSearchParams(window.location.search); 
+            return urlParams.get(name); 
+        } 
+ 
+        function updateTextFromURL() { 
+            const text1 = getQueryParam('text1'); 
+            const text2 = getQueryParam('text2'); 
+            const text4 = getQueryParam('text4'); 
+ 
+            if (text1 !== null) { 
+                document.getElementById('text1').textContent = text1; 
+            } 
+ 
+            if (text2 !== null) { 
+                document.getElementById('text2').textContent = text2; 
+            } 
+ 
+            if (text4 !== null) { 
+                document.getElementById('text4').textContent = text4; 
+            } 
+        } 
+ 
+        // Update the time, random number, and text from URL when the page loads 
+        updateTime(); 
+        updateRandomNumber(); 
+        updateTextFromURL(); 
+    </script> 
+</body> 
+</html>
